@@ -16,6 +16,8 @@
     <div class="player-selection"></div>
     <div class="computer-selection"></div>
     <div class="match-result"></div>
+    <div class="player-score"></div>
+    <div class="computer-score"></div>
   </div>
   
   <script>
@@ -29,7 +31,7 @@
     let gameCount = 0;
 
     const buttons = document.querySelectorAll('button');
-    
+
     buttons.forEach((button) => {
       button.addEventListener('click', () => {
         playerSelection = button.className
@@ -47,7 +49,13 @@
         computerSelectionDisplay.textContent = 'Computer chooses "' + computerSelection + '"';
 
         const matchResult = document.querySelector('.match-result');
-        matchResult.textContent = "Result: " + result;
+        matchResult.textContent = result;
+
+        const playerScoreDisplay = document.querySelector('.player-score');
+        playerScoreDisplay.textContent = "Player Score: " + playerScore;
+
+        const computerScoreDisplay = document.querySelector('.computer-score');
+        computerScoreDisplay.textContent = "Computer Score: " + computerScore;
       });
     });
     
