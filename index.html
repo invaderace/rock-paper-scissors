@@ -13,7 +13,9 @@
       <button class="paper">Paper</button>
       <button class="scissors">Scissors</button>
     </div>
-    
+    <div class="player-selection"></div>
+    <div class="computer-selection"></div>
+    <div class="match-result"></div>
   </div>
   
   <script>
@@ -27,14 +29,25 @@
     let gameCount = 0;
 
     const buttons = document.querySelectorAll('button');
+    
     buttons.forEach((button) => {
       button.addEventListener('click', () => {
         playerSelection = button.className
         playerSelection = playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1);
         console.log(playerSelection);
         computerPlay();
+
         console.log(computerSelection);
         rockPaperScissors(playerSelection, computerSelection);
+
+        const playerSelectionDisplay = document.querySelector('.player-selection');
+        playerSelectionDisplay.textContent = 'You choose "' + playerSelection + '"';
+
+        const computerSelectionDisplay = document.querySelector('.computer-selection');
+        computerSelectionDisplay.textContent = 'Computer chooses "' + computerSelection + '"';
+
+        const matchResult = document.querySelector('.match-result');
+        matchResult.textContent = "Result: " + result;
       });
     });
     
