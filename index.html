@@ -13,6 +13,7 @@
       <button class="paper">Paper</button>
       <button class="scissors">Scissors</button>
     </div>
+    
   </div>
   
   <script>
@@ -29,7 +30,11 @@
     buttons.forEach((button) => {
       button.addEventListener('click', () => {
         playerSelection = button.className
+        playerSelection = playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1);
         console.log(playerSelection);
+        computerPlay();
+        console.log(computerSelection);
+        rockPaperScissors(playerSelection, computerSelection);
       });
     });
     
@@ -49,7 +54,7 @@
 
     //Write a function that plays a single round of Rock Paper Scissors. The function should take two parameters - the playerSelection and computerSelection - and then return a string that declares the winner of the round like so: "You Lose! Paper beats Rock"
     function rockPaperScissors(playerSelection, computerSelection) {
-            
+
       if (playerSelection == "Rock") {
         switch (computerSelection) {
           case "Rock":
@@ -99,6 +104,9 @@
             result = "I don't know how you got here. Try again.";
         }
       }
+
+      console.log(result);
+
       return result;
     }  
     //Write a NEW function called game(). Use the previous function inside of this one to play a 5 round game that keeps score and reports a winner or loser at the end.
