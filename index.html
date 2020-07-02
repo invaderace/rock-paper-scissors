@@ -7,6 +7,7 @@
 </head>
 <body>
   <div>
+    <h2>Rock, Paper, Scissors</h2>
     <div>You know how to do this:</div>
     <div class="button-container">
       <button class="rock">Rock</button>
@@ -56,6 +57,11 @@
 
         const computerScoreDisplay = document.querySelector('.computer-score');
         computerScoreDisplay.textContent = "Computer Score: " + computerScore;
+
+        if (playerScore == 5 || computerScore == 5) {
+          console.log('game over')
+        }
+
       });
     });
     
@@ -130,40 +136,6 @@
 
       return result;
     }  
-    //Write a NEW function called game(). Use the previous function inside of this one to play a 5 round game that keeps score and reports a winner or loser at the end.
-    function game() {
-      // get the players choice:
-      playerSelection = prompt("Pick one, meatbag:", "Rock, Paper, or Scissors");
-      // capitalize:
-      playerSelection = playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1);
-
-      while (playerSelection != "Rock" && playerSelection != "Paper" && playerSelection != "Scissors") {
-        playerSelection = prompt("Try harder, sand-for-brains:", "Rock, Paper, or Scissors");
-      }
-      // end choice.
-
-      computerPlay();
-
-      rockPaperScissors(playerSelection, computerSelection);
-      
-      console.log(result);
-
-      if (gameCount < 4) {
-        console.log("The score is Computer: " + computerScore + ", You: " + playerScore + ".");  
-        gameCount++;
-        game();
-      } else if (gameCount == 4) {
-        console.log("The final score is Computer: " + computerScore + ", You: " + playerScore + ".");
-        if (computerScore > playerScore) {
-          endResult = "You are a loser.";
-        } else if (computerScore < playerScore) {
-          endResult = "You are a winner.";
-        } else if (computerScore == playerScore) {
-          endResult = "It's a tie. Yawn.";
-        }
-        console.log(endResult);
-      }
-    }
 
   </script>
 </body>
