@@ -75,6 +75,12 @@
           endResult.textContent = 'Game Over. ' + winner;
 
           resultContainer.appendChild(endResult);
+
+          const restartInstructions = document.createElement('div');
+          restartInstructions.classList.add('.restart-instructions');
+          restartInstructions.textContent = 'Click any button to play again.'
+          
+          resultContainer.appendChild(restartInstructions);
         }
 
       });
