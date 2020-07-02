@@ -14,11 +14,13 @@
       <button class="paper">Paper</button>
       <button class="scissors">Scissors</button>
     </div>
-    <div class="player-selection"></div>
-    <div class="computer-selection"></div>
-    <div class="match-result"></div>
-    <div class="player-score"></div>
-    <div class="computer-score"></div>
+    <div id="result-container">
+      <div class="player-selection"></div>
+      <div class="computer-selection"></div>
+      <div class="match-result"></div>
+      <div class="player-score"></div>
+      <div class="computer-score"></div>
+    </div>
   </div>
   
   <script>
@@ -30,6 +32,7 @@
     let computerScore = 0;
     let playerScore = 0;
     let gameCount = 0;
+    let winner;
 
     const buttons = document.querySelectorAll('button');
 
@@ -59,7 +62,19 @@
         computerScoreDisplay.textContent = "Computer Score: " + computerScore;
 
         if (playerScore == 5 || computerScore == 5) {
-          console.log('game over')
+          if (playerScore > computerScore) {
+            winner = 'You are a winner.'
+          } else if (computerScore > playerScore) {
+            winner = 'You are a loser.'
+          }
+
+          const resultContainer = document.querySelector('#result-container')
+
+          const endResult = document.createElement('div');
+          endResult.classList.add('.end-result');
+          endResult.textContent = 'Game Over. ' + winner;
+
+          resultContainer.appendChild(endResult);
         }
 
       });
