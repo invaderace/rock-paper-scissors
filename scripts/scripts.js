@@ -1,133 +1,143 @@
 let computerSelection;
-    let playerSelection;
-    let result;
-    let endResult;
-    let computerScore = 0;
-    let playerScore = 0;
-    let gameCount = 0;
-    let winner;
+let playerSelection;
+let result;
+let endResult;
+let computerScore = 0;
+let playerScore = 0;
+let gameCount = 0;
+let winner;
 
-    const buttons = document.querySelectorAll('button');
+const playerScoreDisplay = document.querySelector('.player-score');
+playerScoreDisplay.textContent = "Player Score: " + playerScore;
 
-    buttons.forEach((button) => {
-      button.addEventListener('click', () => {
-        playerSelection = button.className
-        playerSelection = playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1);
-        console.log(playerSelection);
-        computerPlay();
+const computerScoreDisplay = document.querySelector('.computer-score');
+computerScoreDisplay.textContent = "Computer Score: " + computerScore;
 
-        console.log(computerSelection);
-        rockPaperScissors(playerSelection, computerSelection);
+const buttons = document.querySelectorAll('button');
 
-        const playerSelectionDisplay = document.querySelector('.player-selection');
-        playerSelectionDisplay.textContent = 'You choose "' + playerSelection + '"';
+const restartButton = document.querySelector('button.restart');
+restartButton.addEventListener('click', restart);
 
-        const computerSelectionDisplay = document.querySelector('.computer-selection');
-        computerSelectionDisplay.textContent = 'Computer chooses "' + computerSelection + '"';
+function playGame (button) {
+    playerSelection = this.className;
+    console.log(playerSelection);
 
-        const matchResult = document.querySelector('.match-result');
-        matchResult.textContent = result;
+    playerSelection = playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1);
 
-        const playerScoreDisplay = document.querySelector('.player-score');
-        playerScoreDisplay.textContent = "Player Score: " + playerScore;
+    computerPlay();
+    rockPaperScissors(playerSelection, computerSelection);
 
-        const computerScoreDisplay = document.querySelector('.computer-score');
-        computerScoreDisplay.textContent = "Computer Score: " + computerScore;
+    const playerSelectionDisplay = document.querySelector('.player-selection');
+    playerSelectionDisplay.textContent = 'You choose "' + playerSelection + '"';
 
-        if (playerScore == 5 || computerScore == 5) {
-          if (playerScore > computerScore) {
+    const computerSelectionDisplay = document.querySelector('.computer-selection');
+    computerSelectionDisplay.textContent = 'Computer chooses "' + computerSelection + '"';
+
+    const matchResult = document.querySelector('.match-result');
+    matchResult.textContent = result;
+
+    playerScoreDisplay.textContent = "Player Score: " + playerScore;
+
+    computerScoreDisplay.textContent = "Computer Score: " + computerScore;
+
+    if (playerScore == 5 || computerScore == 5) {
+        if (playerScore > computerScore) {
             winner = 'You are a winner.'
-          } else if (computerScore > playerScore) {
+        } else if (computerScore > playerScore) {
             winner = 'You are a loser.'
-          }
+        };
 
-          const resultContainer = document.querySelector('#result-container')
+        const resultContainer = document.querySelector('#result-container');
 
-          const endResult = document.createElement('div');
-          endResult.classList.add('.end-result');
-          endResult.textContent = 'Game Over. ' + winner;
+        const endResult = document.createElement('div');
+        endResult.classList.add('.end-result');
+        endResult.textContent = 'Game Over. ' + winner;
 
-          resultContainer.appendChild(endResult);
+        resultContainer.appendChild(endResult)
 
-          const restartInstructions = document.createElement('div');
-          restartInstructions.classList.add('.restart-instructions');
-          restartInstructions.textContent = 'Press \u2318 + R to restart.' 
-          
-          resultContainer.appendChild(restartInstructions);
+        buttons.forEach((button) => button.classList.add('hide'));
+        restartButton.classList.remove('hide');
+    };
+}
 
-        }
-
-      });
-    });
+buttons.forEach((button) => {
+    button.addEventListener('click', playGame);
+});
     
+function restart() {
+    playerScore = 0;
+    computerScore = 0;
+    playerScoreDisplay.textContent = "Player Score: " + playerScore;
+    computerScoreDisplay.textContent = "Computer Score: " + computerScore;
 
-    // Your game is going to play against the computer, so begin with a function called computerPlay that will randomly return either ‘Rock’, ‘Paper’ or ‘Scissors’. We’ll use this function in the game to make the computer’s play.
-    function computerPlay() {
-      let randomNumber = Math.floor(Math.random() * 3);
-      if (randomNumber == 0) {
+    buttons.forEach((button) => button.classList.remove('hide'));
+    restartButton.classList.add('hide');
+};
+
+// Your game is going to play against the computer, so begin with a function called computerPlay that will randomly return either ‘Rock’, ‘Paper’ or ‘Scissors’. We’ll use this function in the game to make the computer’s play.
+function computerPlay() {
+    let randomNumber = Math.floor(Math.random() * 3);
+    if (randomNumber == 0) {
         computerSelection = "Rock";
-      } else if (randomNumber == 1) {
+    } else if (randomNumber == 1) {
         computerSelection = "Paper";
-      } else if (randomNumber == 2) {
+    } else if (randomNumber == 2) {
         computerSelection = "Scissors";
-      }
-      return computerSelection;
+    }
+        return computerSelection;
     }
 
-    //Write a function that plays a single round of Rock Paper Scissors. The function should take two parameters - the playerSelection and computerSelection - and then return a string that declares the winner of the round like so: "You Lose! Paper beats Rock"
-    function rockPaperScissors(playerSelection, computerSelection) {
+//Write a function that plays a single round of Rock Paper Scissors. The function should take two parameters - the playerSelection and computerSelection - and then return a string that declares the winner of the round like so: "You Lose! Paper beats Rock"
+function rockPaperScissors(playerSelection, computerSelection) {
 
-      if (playerSelection == "Rock") {
+    if (playerSelection == "Rock") {
         switch (computerSelection) {
-          case "Rock":
-            result = "It's a tie. Try again."            
-            break;
-          case "Paper":
-            result = "Paper beats rock. You lose.";
-            computerScore++;
-            break;
-          case "Scissors":
-            result = "Rock beats scissors. You win.";
-            playerScore++;
-            break;
-          default:
-            result = "I don't know how you got here. Try again.";
+            case "Rock":
+                result = "It's a tie. Try again."            
+                break;
+            case "Paper":
+                result = "Paper beats rock. You lose.";
+                computerScore++;
+                break;
+            case "Scissors":
+                result = "Rock beats scissors. You win.";
+                playerScore++;
+                break;
+            default:
+                result = "I don't know how you got here. Try again.";
         }
-      } else if (playerSelection == "Paper") {
+    } else if (playerSelection == "Paper") {
         switch (computerSelection) {
-          case "Rock":
-            result = "Paper beats Rock. You win."
-            playerScore++;
-            break;
-          case "Paper":
-            result = "It's a tie. Try again.";
-            break;
-         case "Scissors":
-            result = "Scissors beats paper. You lose";
-            computerScore++;
-            break;
-         default:
-            result = "I don't know how you got here. Try again.";
+            case "Rock":
+                result = "Paper beats Rock. You win."
+                playerScore++;
+                break;
+            case "Paper":
+                result = "It's a tie. Try again.";
+                break;
+            case "Scissors":
+                result = "Scissors beats paper. You lose";
+                computerScore++;
+                break;
+            default:
+                result = "I don't know how you got here. Try again.";
         }
-      } else if (playerSelection == "Scissors") {
+    } else if (playerSelection == "Scissors") {
         switch (computerSelection) {
-          case "Rock":
-            result = "Rock beats scissors. You lose."
-            computerScore++;
-            break;
-          case "Paper":
-            result = "Scissors beats paper. You win.";
-            playerScore++;
-            break;
-          case "Scissors":
-            result = "It's a tie. Try again.";
-            break;
-          default:
-            result = "I don't know how you got here. Try again.";
+            case "Rock":
+                result = "Rock beats scissors. You lose."
+                computerScore++;
+                break;
+            case "Paper":
+                result = "Scissors beats paper. You win.";
+                playerScore++;
+                break;
+            case "Scissors":
+                result = "It's a tie. Try again.";
+                break;
+            default:
+                result = "I don't know how you got here. Try again.";
         }
-      }
-
-      console.log(result);
-
-      return result;
-    }  
+    }
+    return result;
+}  
