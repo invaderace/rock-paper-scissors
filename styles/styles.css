@@ -18,6 +18,6 @@ h2 {
 .selections, .scores {
     display: flex;
     justify-content: space-between;
-    margin-left: 4em;
-    margin-right: 4em;
+    margin-left: 20em;
+    margin-right: 20em;
 }
