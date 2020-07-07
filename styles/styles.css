@@ -1,7 +1,23 @@
 body {
     text-align: center;
+    background-color: slategrey;
 }
 
 .hide {
     display: none; 
+}
+
+h2 {
+    padding-top: 3em;
+}
+
+.button-container {
+    margin: .8em;
+}
+
+.selections, .scores {
+    display: flex;
+    justify-content: space-between;
+    margin-left: 4em;
+    margin-right: 4em;
 }

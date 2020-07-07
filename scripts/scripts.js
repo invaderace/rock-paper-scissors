@@ -1,7 +1,6 @@
 let computerSelection;
 let playerSelection;
 let result;
-let endResult;
 let computerScore = 0;
 let playerScore = 0;
 let gameCount = 0;
@@ -13,10 +12,17 @@ playerScoreDisplay.textContent = "Player Score: " + playerScore;
 const computerScoreDisplay = document.querySelector('.computer-score');
 computerScoreDisplay.textContent = "Computer Score: " + computerScore;
 
-const buttons = document.querySelectorAll('button');
+const buttons = document.querySelectorAll('.rock, .paper, .scissors');
 
 const restartButton = document.querySelector('button.restart');
 restartButton.addEventListener('click', restart);
+
+const matchResult = document.querySelector('.match-result');
+const endResult = document.querySelector('.end-result');
+
+const playerSelectionDisplay = document.querySelector('.player-selection');
+const computerSelectionDisplay = document.querySelector('.computer-selection');
+
 
 function playGame (button) {
     playerSelection = this.className;
@@ -27,17 +33,16 @@ function playGame (button) {
     computerPlay();
     rockPaperScissors(playerSelection, computerSelection);
 
-    const playerSelectionDisplay = document.querySelector('.player-selection');
     playerSelectionDisplay.textContent = 'You choose "' + playerSelection + '"';
 
-    const computerSelectionDisplay = document.querySelector('.computer-selection');
     computerSelectionDisplay.textContent = 'Computer chooses "' + computerSelection + '"';
 
-    const matchResult = document.querySelector('.match-result');
+    matchResult.classList.remove('hide');
     matchResult.textContent = result;
 
+    playerSelectionDisplay.classList.remove('hide');
+    computerSelectionDisplay.classList.remove('hide');
     playerScoreDisplay.textContent = "Player Score: " + playerScore;
-
     computerScoreDisplay.textContent = "Computer Score: " + computerScore;
 
     if (playerScore == 5 || computerScore == 5) {
@@ -47,24 +52,20 @@ function playGame (button) {
             winner = 'You are a loser.'
         };
 
-        const resultContainer = document.querySelector('#result-container');
-
-        const endResult = document.createElement('div');
-        endResult.classList.add('.end-result');
         endResult.textContent = 'Game Over. ' + winner;
-
-        resultContainer.appendChild(endResult)
+        endResult.classList.remove('hide');
 
         buttons.forEach((button) => button.classList.add('hide'));
         restartButton.classList.remove('hide');
     };
-}
+};
 
 buttons.forEach((button) => {
     button.addEventListener('click', playGame);
 });
     
 function restart() {
+
     playerScore = 0;
     computerScore = 0;
     playerScoreDisplay.textContent = "Player Score: " + playerScore;
@@ -72,6 +73,13 @@ function restart() {
 
     buttons.forEach((button) => button.classList.remove('hide'));
     restartButton.classList.add('hide');
+
+    endResult.classList.add('hide');
+
+    matchResult.classList.add('hide');
+
+    playerSelectionDisplay.classList.add('hide');
+    computerSelectionDisplay.classList.add('hide');
 };
 
 // Your game is going to play against the computer, so begin with a function called computerPlay that will randomly return either ‘Rock’, ‘Paper’ or ‘Scissors’. We’ll use this function in the game to make the computer’s play.
@@ -116,7 +124,7 @@ function rockPaperScissors(playerSelection, computerSelection) {
                 result = "It's a tie. Try again.";
                 break;
             case "Scissors":
-                result = "Scissors beats paper. You lose";
+                result = "Scissors beats paper. You lose.";
                 computerScore++;
                 break;
             default:
