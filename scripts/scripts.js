@@ -45,6 +45,10 @@ function playGame (button) {
     playerScoreDisplay.textContent = "Player Score: " + playerScore;
     computerScoreDisplay.textContent = "Computer Score: " + computerScore;
 
+    gameEnd();
+};
+
+function gameEnd() {
     if (playerScore == 5 || computerScore == 5) {
         if (playerScore > computerScore) {
             winner = 'You are a winner.'
